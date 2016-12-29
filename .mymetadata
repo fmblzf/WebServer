@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="webserver"
+  id="myeclipse.1457686625283"
+  context-root="/webapp"
+  j2ee-spec="1.7"
+  archive="webserver.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+

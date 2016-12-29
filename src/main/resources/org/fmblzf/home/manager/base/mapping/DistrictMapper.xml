@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.fmblzf.home.manager.base.dao.DistrictMapper" >
+  <resultMap id="BaseResultMap" type="org.fmblzf.home.manager.base.bean.District" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="did" property="did" jdbcType="CHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="enname" property="enname" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="TINYINT" />
+    <result column="usetype" property="usetype" jdbcType="BIT" />
+    <result column="upid" property="upid" jdbcType="INTEGER" />
+    <result column="displayorder" property="displayorder" jdbcType="SMALLINT" />
+    <result column="ishot" property="ishot" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, did, name, enname, level, usetype, upid, displayorder, ishot
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cy_com_district
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cy_com_district
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.fmblzf.home.manager.base.bean.District" >
+    insert into cy_com_district (id, did, name, enname, 
+      level, usetype, upid, displayorder, 
+      ishot)
+    values (#{id,jdbcType=INTEGER}, #{did,jdbcType=CHAR}, #{name,jdbcType=VARCHAR}, #{enname,jdbcType=VARCHAR}, 
+      #{level,jdbcType=TINYINT}, #{usetype,jdbcType=BIT}, #{upid,jdbcType=INTEGER}, #{displayorder,jdbcType=SMALLINT}, 
+      #{ishot,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="org.fmblzf.home.manager.base.bean.District" >
+    insert into cy_com_district
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="did != null" >
+        did,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="enname != null" >
+        enname,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="usetype != null" >
+        usetype,
+      </if>
+      <if test="upid != null" >
+        upid,
+      </if>
+      <if test="displayorder != null" >
+        displayorder,
+      </if>
+      <if test="ishot != null" >
+        ishot,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="did != null" >
+        #{did,jdbcType=CHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="enname != null" >
+        #{enname,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=TINYINT},
+      </if>
+      <if test="usetype != null" >
+        #{usetype,jdbcType=BIT},
+      </if>
+      <if test="upid != null" >
+        #{upid,jdbcType=INTEGER},
+      </if>
+      <if test="displayorder != null" >
+        #{displayorder,jdbcType=SMALLINT},
+      </if>
+      <if test="ishot != null" >
+        #{ishot,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.fmblzf.home.manager.base.bean.District" >
+    update cy_com_district
+    <set >
+      <if test="did != null" >
+        did = #{did,jdbcType=CHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="enname != null" >
+        enname = #{enname,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=TINYINT},
+      </if>
+      <if test="usetype != null" >
+        usetype = #{usetype,jdbcType=BIT},
+      </if>
+      <if test="upid != null" >
+        upid = #{upid,jdbcType=INTEGER},
+      </if>
+      <if test="displayorder != null" >
+        displayorder = #{displayorder,jdbcType=SMALLINT},
+      </if>
+      <if test="ishot != null" >
+        ishot = #{ishot,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.fmblzf.home.manager.base.bean.District" >
+    update cy_com_district
+    set did = #{did,jdbcType=CHAR},
+      name = #{name,jdbcType=VARCHAR},
+      enname = #{enname,jdbcType=VARCHAR},
+      level = #{level,jdbcType=TINYINT},
+      usetype = #{usetype,jdbcType=BIT},
+      upid = #{upid,jdbcType=INTEGER},
+      displayorder = #{displayorder,jdbcType=SMALLINT},
+      ishot = #{ishot,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

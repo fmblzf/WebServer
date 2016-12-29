@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.fmblzf.home.manager.base.dao.UserInfoMapper">
+	<resultMap id="BaseResultMap" type="org.fmblzf.home.manager.base.bean.UserInfo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="userid" property="userid" jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="TINYINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="tel" property="tel" jdbcType="VARCHAR" />
+		<result column="district_lv1" property="districtLv1" jdbcType="INTEGER" />
+		<result column="district_lv2" property="districtLv2" jdbcType="INTEGER" />
+		<result column="district_lv3" property="districtLv3" jdbcType="INTEGER" />
+		<result column="pic_num" property="picNum" jdbcType="INTEGER" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="cardtype" property="cardtype" jdbcType="TINYINT" />
+		<result column="cardno" property="cardno" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="TINYINT" />
+		<result column="birthday" property="birthday" jdbcType="VARCHAR" />
+		<result column="provincename" property="provincename" jdbcType="VARCHAR" />
+		<result column="cityname" property="cityname" jdbcType="VARCHAR" />
+		<result column="countyname" property="countyname" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, userid, type, name, tel, district_lv1, district_lv2, district_lv3,
+		pic_num, address,
+		cardtype, cardno, sex, birthday, provincename, cityname, countyname
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from cy_useful_info
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectByUserInfo" resultMap="BaseResultMap"
+		parameterType="org.fmblzf.home.manager.base.bean.UserInfo">
+		select
+		<include refid="Base_Column_List" />
+		from cy_useful_info
+		where tel = #{tel,jdbcType=VARCHAR}
+	</select>
+	<select id="getAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from cy_useful_info
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from cy_useful_info
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="org.fmblzf.home.manager.base.bean.UserInfo">
+		insert into cy_useful_info (id, userid, type,
+		name, tel, district_lv1,
+		district_lv2, district_lv3, pic_num,
+		address, cardtype, cardno,
+		sex, birthday, provincename,
+		cityname, countyname)
+		values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER},
+		#{type,jdbcType=TINYINT},
+		#{name,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{districtLv1,jdbcType=INTEGER},
+		#{districtLv2,jdbcType=INTEGER}, #{districtLv3,jdbcType=INTEGER},
+		#{picNum,jdbcType=INTEGER},
+		#{address,jdbcType=VARCHAR}, #{cardtype,jdbcType=TINYINT}, #{cardno,jdbcType=VARCHAR},
+		#{sex,jdbcType=TINYINT}, #{birthday,jdbcType=VARCHAR},
+		#{provincename,jdbcType=VARCHAR},
+		#{cityname,jdbcType=VARCHAR}, #{countyname,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="org.fmblzf.home.manager.base.bean.UserInfo">
+		insert into cy_useful_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userid != null">
+				userid,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="tel != null">
+				tel,
+			</if>
+			<if test="districtLv1 != null">
+				district_lv1,
+			</if>
+			<if test="districtLv2 != null">
+				district_lv2,
+			</if>
+			<if test="districtLv3 != null">
+				district_lv3,
+			</if>
+			<if test="picNum != null">
+				pic_num,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="cardtype != null">
+				cardtype,
+			</if>
+			<if test="cardno != null">
+				cardno,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="birthday != null">
+				birthday,
+			</if>
+			<if test="provincename != null">
+				provincename,
+			</if>
+			<if test="cityname != null">
+				cityname,
+			</if>
+			<if test="countyname != null">
+				countyname,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="userid != null">
+				#{userid,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=TINYINT},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="tel != null">
+				#{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="districtLv1 != null">
+				#{districtLv1,jdbcType=INTEGER},
+			</if>
+			<if test="districtLv2 != null">
+				#{districtLv2,jdbcType=INTEGER},
+			</if>
+			<if test="districtLv3 != null">
+				#{districtLv3,jdbcType=INTEGER},
+			</if>
+			<if test="picNum != null">
+				#{picNum,jdbcType=INTEGER},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="cardtype != null">
+				#{cardtype,jdbcType=TINYINT},
+			</if>
+			<if test="cardno != null">
+				#{cardno,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=TINYINT},
+			</if>
+			<if test="birthday != null">
+				#{birthday,jdbcType=VARCHAR},
+			</if>
+			<if test="provincename != null">
+				#{provincename,jdbcType=VARCHAR},
+			</if>
+			<if test="cityname != null">
+				#{cityname,jdbcType=VARCHAR},
+			</if>
+			<if test="countyname != null">
+				#{countyname,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="org.fmblzf.home.manager.base.bean.UserInfo">
+		update cy_useful_info
+		<set>
+			<if test="userid != null">
+				userid = #{userid,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=TINYINT},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="tel != null">
+				tel = #{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="districtLv1 != null">
+				district_lv1 = #{districtLv1,jdbcType=INTEGER},
+			</if>
+			<if test="districtLv2 != null">
+				district_lv2 = #{districtLv2,jdbcType=INTEGER},
+			</if>
+			<if test="districtLv3 != null">
+				district_lv3 = #{districtLv3,jdbcType=INTEGER},
+			</if>
+			<if test="picNum != null">
+				pic_num = #{picNum,jdbcType=INTEGER},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="cardtype != null">
+				cardtype = #{cardtype,jdbcType=TINYINT},
+			</if>
+			<if test="cardno != null">
+				cardno = #{cardno,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=TINYINT},
+			</if>
+			<if test="birthday != null">
+				birthday = #{birthday,jdbcType=VARCHAR},
+			</if>
+			<if test="provincename != null">
+				provincename = #{provincename,jdbcType=VARCHAR},
+			</if>
+			<if test="cityname != null">
+				cityname = #{cityname,jdbcType=VARCHAR},
+			</if>
+			<if test="countyname != null">
+				countyname = #{countyname,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="org.fmblzf.home.manager.base.bean.UserInfo">
+		update cy_useful_info
+		set userid = #{userid,jdbcType=INTEGER},
+		type = #{type,jdbcType=TINYINT},
+		name = #{name,jdbcType=VARCHAR},
+		tel = #{tel,jdbcType=VARCHAR},
+		district_lv1 = #{districtLv1,jdbcType=INTEGER},
+		district_lv2 = #{districtLv2,jdbcType=INTEGER},
+		district_lv3 = #{districtLv3,jdbcType=INTEGER},
+		pic_num = #{picNum,jdbcType=INTEGER},
+		address = #{address,jdbcType=VARCHAR},
+		cardtype = #{cardtype,jdbcType=TINYINT},
+		cardno = #{cardno,jdbcType=VARCHAR},
+		sex = #{sex,jdbcType=TINYINT},
+		birthday = #{birthday,jdbcType=VARCHAR},
+		provincename = #{provincename,jdbcType=VARCHAR},
+		cityname = #{cityname,jdbcType=VARCHAR},
+		countyname = #{countyname,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>
