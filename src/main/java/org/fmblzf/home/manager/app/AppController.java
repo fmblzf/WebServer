@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -75,15 +76,39 @@ public class AppController extends BaseController {
 	 */
 	@RequestMapping(value = "/multipart.do",method=RequestMethod.POST,headers="Content-Type=multipart/form-data")
 	public @ResponseBody ActionMessage action(@RequestParam("data")String data,HttpServletRequest request){
-		String savePath = FileUploadUtils.upload(request, "file", null);		
+		String[] savePaths = FileUploadUtils.upload(request, "files", null);		
 		//图片上传成功之后再进行数据操作，可以保持同步
 		LogUtils.log(this.getClass(), LogUtils.LogLevel.INFO, data, null);
 		JSONObject jsonObject = JSONObject.parseObject(data);
-		jsonObject.put("savePath", savePath);
+		jsonObject.put("savePaths", savePaths);
 		ActionMessage message = DispatcherService.dispatcher(jsonObject);
 		String fileSavePath = SystemUtils.getServerPositivePath(request);
-		message.setFiles(new String[]{fileSavePath+savePath});
+		for(int i = 0 ; i < savePaths.length ; i++){
+			savePaths[i] = fileSavePath+savePaths[i];
+		}
+		message.setFiles(savePaths);
 		return message;
 	}
+	/**
+	 * 
+	 * @Title: action 
+	 * @Description: TODO 实现多文件上传
+	 * @param files
+	 * @param request
+	 * @return 
+	 *
+	 */
+	@RequestMapping(value = "/upload.do",method = RequestMethod.POST,headers="Content-Type=multipart/form-data")
+	public @ResponseBody ActionMessage action(@RequestParam("files")MultipartFile[] files,HttpServletRequest request){
+		String[] savePaths = FileUploadUtils.upload(files,request, null);		
+		String fileSavePath = SystemUtils.getServerPositivePath(request);
+		for(int i = 0 ; i < savePaths.length ; i++){
+			savePaths[i] = fileSavePath+savePaths[i];
+		}
+		ActionMessage message = ActionMessage.getActionMessage(null);
+		message.setFiles(savePaths);
+		return message;
+	}
+	
 	
 }

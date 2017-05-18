@@ -1,6 +1,8 @@
 package org.fmblzf.home.manager.common.utils;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -38,10 +40,57 @@ public class FileUploadUtils {
 	 * @return 回传图片上传后的服务器地址
 	 *
 	 */
-	public static String upload(HttpServletRequest request,String muKey,ListenerEvent listener){
+	public static String[] upload(HttpServletRequest request,String muKey,ListenerEvent listener){
 		MultipartHttpServletRequest muHttpServletRequest = (MultipartHttpServletRequest)request;
-		//"file"是上传文件客户端的key值
-		MultipartFile file = muHttpServletRequest.getFile(muKey);
+		//muKey是上传文件客户端的key值
+		List<MultipartFile> files = muHttpServletRequest.getFiles(muKey);
+		List<String> savePaths = new ArrayList<String>();
+		if(files == null || files.size() == 0)
+			return  null;
+		for(int i = 0 ; i < files.size() ; i++){
+			MultipartFile file = files.get(i);
+			String savePath = saveFile(request,file);
+			if(savePath != null)
+				savePaths.add(savePath);
+		}
+		String[] savePathArr = new String[savePaths.size()];
+		savePaths.toArray(savePathArr);
+		return savePathArr;
+	}
+	/**
+	 * 
+	 * @Title: upload 
+	 * @Description: TODO 多文件上传
+	 * @param files
+	 * @param request
+	 * @param listener
+	 * @return 
+	 *
+	 */
+	public static String[] upload(MultipartFile[] files,HttpServletRequest request,ListenerEvent listener){
+		if(files == null || files.length == 0)
+			return  null;
+		List<String> savePaths = new ArrayList<String>();
+		for(int i = 0 ; i < files.length ; i++){
+			MultipartFile file = files[i];
+			String savePath = saveFile(request,file);
+			if(savePath != null)
+				savePaths.add(savePath);
+		}
+		String[] savePathArr = new String[savePaths.size()];
+		savePaths.toArray(savePathArr);
+		return savePathArr;
+	}
+	/**
+	 * 
+	 * @Title: saveFile 
+	 * @Description: TODO 保存文件
+	 * @param request
+	 * @param file
+	 * @return 
+	 *
+	 */
+	public static String saveFile(HttpServletRequest request,MultipartFile file){
 		if(file == null)
 			return  null;
 		String path = request.getSession().getServletContext().getRealPath(root);
@@ -59,9 +108,6 @@ public class FileUploadUtils {
             return null;
         }  
         String filePath = request.getContextPath()+"/"+root+"/"+fileName;
-        if(listener != null){
-        	listener.action(ListenerEvent.FILE_UPLOAD, filePath);
-        }
 		return filePath;
 	}
 	
